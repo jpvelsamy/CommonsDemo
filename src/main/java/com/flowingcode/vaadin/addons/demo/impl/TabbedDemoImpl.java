@@ -84,18 +84,18 @@ public class TabbedDemoImpl<T extends Component> extends VerticalLayout implemen
 			this.add(tabs, currentLayout, footer);
 		});
 
+		currentLayout = demos.get(tabs.getSelectedTab());
 		this.add(tabs, currentLayout, footer);
 		currentLayout.initDemo();
-		setSizeFull();
 		currentLayout.setSizeFull();
-	}
 
+		setSizeFull();
+	}
 
 	@Override
 	public void addDemo(Component demo, String name, String sourceCodeUrl) {
 		Tab tab = new Tab(name);
 		tabs.add(tab);
-		currentLayout = new SplitLayoutDemo<>(demo, sourceCodeUrl);
-		demos.put(tab, currentLayout);
+		demos.put(tab, new SplitLayoutDemo<>(demo, sourceCodeUrl));
 	}
 }
