@@ -130,6 +130,11 @@
                 <supportedPackagings>
                     <supportedPackaging>jar</supportedPackaging>
                 </supportedPackagings>
+                <webAppConfig>
+                    <resourceBases>
+                        <resourceBase>src/main/resources/META-INF/resources</resourceBase>
+                    </resourceBases>
+                </webAppConfig>
             </configuration>
         </plugin>
       </plugins>
