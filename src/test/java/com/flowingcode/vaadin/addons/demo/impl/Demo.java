@@ -31,17 +31,16 @@ import com.vaadin.flow.router.Route;
 public class Demo extends VerticalLayout {
 
 	public Demo() {
+		final String sourceCodeUrl = "https://github.com/FlowingCode/CommonsDemo/blob/master/src/test/java/com/flowingcode/vaadin/addons/demo/impl/Demo.java";
 		VerticalLayout vl = new VerticalLayout();
 		VerticalLayout vl2 = new VerticalLayout();
 		vl.setSizeFull();
 		vl2.setSizeFull();
 		vl.add(new TextField("Hello"));
-		TabbedDemoImpl show = new TabbedDemoImpl(vl, "Demo 1",
-				"https://github.com/FlowingCode/CommonsDemo/blob/master/src/main/java/com/flowingcode/vaadin/addons/demo/App.java");
+		TabbedDemoImpl show = new TabbedDemoImpl(vl, "Demo 1", sourceCodeUrl);
 
 		vl2.add(new TextField("Hi"));
-		show.addDemo(vl2, "Demo 2",
-				"https://github.com/FlowingCode/CommonsDemo/blob/master/src/main/java/com/flowingcode/vaadin/addons/demo/App.java");
+		show.addDemo(vl2, "Demo 2", sourceCodeUrl);
 		add(show);
 		setSizeFull();
 	}
