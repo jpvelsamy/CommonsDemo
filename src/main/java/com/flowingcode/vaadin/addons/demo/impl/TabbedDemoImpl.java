@@ -22,6 +22,7 @@ package com.flowingcode.vaadin.addons.demo.impl;
 import com.flowingcode.vaadin.addons.demo.TabbedDemo;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.checkbox.Checkbox;
+import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.splitlayout.SplitLayout.Orientation;
@@ -69,7 +70,7 @@ public class TabbedDemoImpl<T extends Component> extends VerticalLayout implemen
 				orientationCB.setEnabled(false);
 			}
 		});
-		HorizontalLayout footer = new HorizontalLayout();
+		footer = new HorizontalLayout();
 		footer.setWidthFull();
 		footer.setJustifyContentMode(JustifyContentMode.END);
 		footer.add(codeCB, orientationCB);
@@ -79,10 +80,12 @@ public class TabbedDemoImpl<T extends Component> extends VerticalLayout implemen
 		tabs.addSelectedChangeListener(e -> {
 			removeAll();
 			currentLayout = demos.get(e.getSelectedTab());
+			currentLayout.initDemo();
 			this.add(tabs, currentLayout, footer);
 		});
 
 		this.add(tabs, currentLayout, footer);
+		currentLayout.initDemo();
 		setSizeFull();
 		currentLayout.setSizeFull();
 	}

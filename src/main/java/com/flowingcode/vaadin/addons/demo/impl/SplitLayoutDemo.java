@@ -28,13 +28,14 @@ import com.vaadin.flow.component.splitlayout.SplitLayout.Orientation;
 public class SplitLayoutDemo<T extends Component> extends Composite<SplitLayout> {
 
 	private SourceCodeView code;
+	private T demo;
 
 	public SplitLayoutDemo(T demo, String sourceUrl) {
 		// Split layout
 		getContent().setOrientation(Orientation.HORIZONTAL);
 		code = new SourceCodeView(sourceUrl);
 
-		getContent().addToPrimary(demo);
+		this.demo = demo;
 		getContent().addToSecondary(code);
 		getContent().setSizeFull();
 	}
@@ -50,5 +51,9 @@ public class SplitLayoutDemo<T extends Component> extends Composite<SplitLayout>
 	}
 	public void setSizeFull() {
 		getContent().setSizeFull();
+	}
+
+	public void initDemo() {
+		getContent().addToPrimary(demo);
 	}
 }
