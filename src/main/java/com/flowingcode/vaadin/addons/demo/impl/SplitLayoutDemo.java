@@ -21,6 +21,7 @@ package com.flowingcode.vaadin.addons.demo.impl;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
+import com.vaadin.flow.component.HasSize;
 import com.vaadin.flow.component.splitlayout.SplitLayout;
 import com.vaadin.flow.component.splitlayout.SplitLayout.Orientation;
 
@@ -36,24 +37,21 @@ public class SplitLayoutDemo<T extends Component> extends Composite<SplitLayout>
 		code = new SourceCodeView(sourceUrl);
 
 		this.demo = demo;
+		getContent().addToPrimary(demo);
 		getContent().addToSecondary(code);
 		getContent().setSizeFull();
 	}
 
-	public SourceCodeView getSourceCodeView() {
-		return code;
-	}
 	public void setOrientation(Orientation o) {
 		getContent().setOrientation(o);
+		getContent().getPrimaryComponent().getElement().setAttribute("style", "width: 100%; height: 100%");
+		code.setSizeFull();
 	}
+
 	public void setSplitterPosition(int pos) {
 		getContent().setSplitterPosition(pos);
 	}
 	public void setSizeFull() {
 		getContent().setSizeFull();
-	}
-
-	public void initDemo() {
-		getContent().addToPrimary(demo);
 	}
 }

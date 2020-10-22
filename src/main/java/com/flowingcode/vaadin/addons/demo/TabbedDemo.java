@@ -22,6 +22,13 @@ package com.flowingcode.vaadin.addons.demo;
 import com.vaadin.flow.component.Component;
 
 public interface TabbedDemo<T extends Component> {
-
+	/*
+	 * Demo with source code layout
+	 */
 	void addDemo(T demo, String name, String sourceCodeUrl);
+
+	/*
+	 * Demo without source code
+	 */
+	void addDemo(T demo, String name);
 }

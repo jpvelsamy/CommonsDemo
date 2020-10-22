@@ -38,8 +38,16 @@ public class TabbedDemoImpl<T extends Component> extends VerticalLayout implemen
 	private Tabs tabs;
 	private HorizontalLayout footer;
 	private SplitLayoutDemo<Component> currentLayout;
-	private Map<Tab, SplitLayoutDemo<Component>> demos;
+	private Map<Tab, Component> demos;
 
+	@SuppressWarnings("unchecked")
+	/**
+	 * 
+	 * @param demo          the demo instance
+	 * @param name          the demo name, populates its related tab
+	 * @param sourceCodeUrl the url of the demo, <b>null</b> to not show source code
+	 *                      section.
+	 */
 	public TabbedDemoImpl(T demo, String name, String sourceCodeUrl) {
 		tabs = new Tabs();
 		demos = new HashMap<>();
@@ -54,9 +62,6 @@ public class TabbedDemoImpl<T extends Component> extends VerticalLayout implemen
 			} else {
 				currentLayout.setOrientation(Orientation.VERTICAL);
 			}
-			currentLayout.getContent().getPrimaryComponent().getElement().setAttribute("style",
-					"width: 100%; height: 100%");
-			currentLayout.getSourceCodeView().setSizeFull();
 		});
 		Checkbox codeCB = new Checkbox("Show Source Code");
 		codeCB.setValue(true);
@@ -75,19 +80,33 @@ public class TabbedDemoImpl<T extends Component> extends VerticalLayout implemen
 		footer.setJustifyContentMode(JustifyContentMode.END);
 		footer.add(codeCB, orientationCB);
 
-		addDemo(demo, name, sourceCodeUrl);
+		if (sourceCodeUrl != null) {
+			addDemo(demo, name, sourceCodeUrl);
+		} else {
+			addDemo(demo, name);
+		}
 
 		tabs.addSelectedChangeListener(e -> {
 			removeAll();
-			currentLayout = demos.get(e.getSelectedTab());
-			currentLayout.initDemo();
-			this.add(tabs, currentLayout, footer);
+			// If current demo is instance of SplitLayoutDemo, add footer.
+			Component currentDemo = demos.get(tabs.getSelectedTab());
+			if (currentDemo instanceof SplitLayoutDemo) {
+				currentLayout = (SplitLayoutDemo<Component>) currentDemo;
+				this.add(tabs, currentLayout, footer);
+			}
+			else {
+				this.add(tabs, currentDemo);
+			}
 		});
 
-		currentLayout = demos.get(tabs.getSelectedTab());
-		this.add(tabs, currentLayout, footer);
-		currentLayout.initDemo();
-		currentLayout.setSizeFull();
+		// If current demo is instance of SplitLayoutDemo, add footer.
+		Component currentDemo = demos.get(tabs.getSelectedTab());
+		if (currentDemo instanceof SplitLayoutDemo) {
+			currentLayout = (SplitLayoutDemo<Component>) currentDemo;
+			this.add(tabs, currentLayout, footer);
+		} else {
+			this.add(tabs, currentDemo);
+		}
 
 		setSizeFull();
 	}
@@ -97,5 +116,12 @@ public class TabbedDemoImpl<T extends Component> extends VerticalLayout implemen
 		Tab tab = new Tab(name);
 		tabs.add(tab);
 		demos.put(tab, new SplitLayoutDemo<>(demo, sourceCodeUrl));
+	}
+
+	@Override
+	public void addDemo(Component demo, String name) {
+		Tab tab = new Tab(name);
+		tabs.add(tab);
+		demos.put(tab, demo);
 	}
 }
