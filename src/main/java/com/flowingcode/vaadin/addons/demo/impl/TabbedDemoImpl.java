@@ -30,6 +30,7 @@ import com.vaadin.flow.component.tabs.Tabs;
 import java.util.HashMap;
 import java.util.Map;
 
+@StyleSheet("context://frontend/styles/commons-demo/shared-styles.css")
 @SuppressWarnings("serial")
 public class TabbedDemoImpl<T extends Component> extends VerticalLayout implements TabbedDemo {
 
