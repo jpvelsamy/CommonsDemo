@@ -20,9 +20,14 @@
 package com.flowingcode.vaadin.addons.demo.impl;
 
 import com.flowingcode.vaadin.addons.demo.TabbedDemo;
+import com.vaadin.flow.component.Component;
 
 @SuppressWarnings("serial")
 @Deprecated
-public class TabbedDemoImpl extends TabbedDemo {
+public class TabbedDemoImpl<T> extends TabbedDemo {
+
+	public TabbedDemoImpl(Component demo, String name, String sourceCodeUrl) {
+		addDemo(demo, name, sourceCodeUrl);
+	}
 
 }
