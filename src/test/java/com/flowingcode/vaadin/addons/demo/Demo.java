@@ -17,8 +17,9 @@
  * limitations under the License.
  * #L%
  */
-package com.flowingcode.vaadin.addons.demo.impl;
+package com.flowingcode.vaadin.addons.demo;
 
+import com.flowingcode.vaadin.addons.demo.TabbedDemo;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
@@ -38,7 +39,7 @@ public class Demo extends VerticalLayout {
 		vl.setSizeFull();
 		vl.add(new TextField("Hello"));
 
-		TabbedDemoImpl tabbedDemo = new TabbedDemoImpl();
+		TabbedDemo tabbedDemo = new TabbedDemo();
 		tabbedDemo.addDemo(vl, "Demo 1", sourceCodeUrl);
 
 		vl2.add(new TextField("Hi"));

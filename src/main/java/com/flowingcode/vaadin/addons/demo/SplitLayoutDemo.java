@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.flowingcode.vaadin.addons.demo.impl;
+package com.flowingcode.vaadin.addons.demo;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;

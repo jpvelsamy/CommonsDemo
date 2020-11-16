@@ -19,16 +19,108 @@
  */
 package com.flowingcode.vaadin.addons.demo;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.checkbox.Checkbox;
+import com.vaadin.flow.component.dependency.StyleSheet;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.splitlayout.SplitLayout.Orientation;
+import com.vaadin.flow.component.tabs.Tab;
+import com.vaadin.flow.component.tabs.Tabs;
 
-public interface TabbedDemo {
-	/*
-	 * Demo with source code layout
-	 */
-	void addDemo(Component demo, String name, String sourceCodeUrl);
+@StyleSheet("context://frontend/styles/commons-demo/shared-styles.css")
+@SuppressWarnings("serial")
+public class TabbedDemo extends VerticalLayout {
 
-	/*
-	 * Demo without source code
+	private Tabs tabs;
+	private HorizontalLayout footer;
+	private SplitLayoutDemo<Component> currentLayout;
+	private Map<Tab, Component> demos;
+	private Checkbox orientationCB;
+	private Checkbox codeCB;
+
+	@SuppressWarnings("unchecked")
+	public TabbedDemo() {
+		tabs = new Tabs();
+		demos = new HashMap<>();
+		tabs.setWidthFull();
+		// Footer
+		orientationCB = new Checkbox("Toggle Orientation");
+		orientationCB.setValue(true);
+		orientationCB.addClassName("smallcheckbox");
+		orientationCB.addValueChangeListener(cb -> {
+			updateSplitterOrientation();
+		});
+		codeCB = new Checkbox("Show Source Code");
+		codeCB.setValue(true);
+		codeCB.addClassName("smallcheckbox");
+		codeCB.addValueChangeListener(cb -> {
+			updateSplitterPosition();
+		});
+		footer = new HorizontalLayout();
+		footer.setWidthFull();
+		footer.setJustifyContentMode(JustifyContentMode.END);
+		footer.add(codeCB, orientationCB);
+
+		tabs.addSelectedChangeListener(e -> {
+			removeAll();
+			// If current demo is instance of SplitLayoutDemo, add footer.
+			Component currentDemo = demos.get(tabs.getSelectedTab());
+			if (currentDemo instanceof SplitLayoutDemo) {
+				currentLayout = (SplitLayoutDemo<Component>) currentDemo;
+				this.add(tabs, currentLayout, footer);
+			}
+			else {
+				this.add(tabs, currentDemo);
+			}
+			updateSplitterPosition();
+			updateSplitterOrientation();
+		});
+
+		setSizeFull();
+	}
+
+	/**
+	 *
+	 * @param demo          the demo instance
+	 * @param name          the demo name (tab label)
+	 * @param sourceCodeUrl the url of the demo, <b>null</b> to not show source code
+	 *                      section.
 	 */
-	void addDemo(Component demo, String name);
+	public void addDemo(Component demo, String label, String sourceCodeUrl) {
+		Tab tab = new Tab(label);
+		if (sourceCodeUrl != null) {
+			demos.put(tab, new SplitLayoutDemo<>(demo, sourceCodeUrl));
+		} else {
+			demos.put(tab, demo);
+		}
+		tabs.add(tab);
+	}
+
+	public void addDemo(Component demo, String label) {
+		addDemo(demo, label, null);
+	}
+
+	private void updateSplitterPosition() {
+		boolean b = codeCB.getValue();
+		if (b) {
+			currentLayout.setSplitterPosition(50);
+			orientationCB.setEnabled(true);
+		} else {
+			currentLayout.setSplitterPosition(100);
+			orientationCB.setEnabled(false);
+		}
+	}
+
+	private void updateSplitterOrientation() {
+		boolean b = orientationCB.getValue();
+		if (b) {
+			currentLayout.setOrientation(Orientation.HORIZONTAL);
+		} else {
+			currentLayout.setOrientation(Orientation.VERTICAL);
+		}
+	}
 }
