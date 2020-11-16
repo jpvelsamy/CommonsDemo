@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,6 @@
  */
 package com.flowingcode.vaadin.addons.demo.impl;
 
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
@@ -38,17 +37,18 @@ public class Demo extends VerticalLayout {
 		VerticalLayout vl3 = new VerticalLayout();
 		vl.setSizeFull();
 		vl.add(new TextField("Hello"));
-		// Default demo with constructor
-		TabbedDemoImpl<Component> tabbedDemo = new TabbedDemoImpl<>(vl, "Demo 1", sourceCodeUrl);
-		// Adding demo with sourcecode via method
+
+		TabbedDemoImpl tabbedDemo = new TabbedDemoImpl();
+		tabbedDemo.addDemo(vl, "Demo 1", sourceCodeUrl);
+
 		vl2.add(new TextField("Hi"));
 		tabbedDemo.addDemo(vl2, "Demo 2", sourceCodeUrl);
-		
+
 		TextField tf = new TextField("Demo Without Source Code");
 		tf.setWidthFull();
 		vl3.add(tf);
 		tabbedDemo.addDemo(vl3, "Demo Without Source Code");
-		
+
 		add(tabbedDemo);
 		setSizeFull();
 	}

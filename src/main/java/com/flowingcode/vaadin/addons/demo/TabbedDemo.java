@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,14 +21,14 @@ package com.flowingcode.vaadin.addons.demo;
 
 import com.vaadin.flow.component.Component;
 
-public interface TabbedDemo<T extends Component> {
+public interface TabbedDemo {
 	/*
 	 * Demo with source code layout
 	 */
-	void addDemo(T demo, String name, String sourceCodeUrl);
+	void addDemo(Component demo, String name, String sourceCodeUrl);
 
 	/*
 	 * Demo without source code
 	 */
-	void addDemo(T demo, String name);
+	void addDemo(Component demo, String name);
 }
