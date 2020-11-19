@@ -37,16 +37,16 @@ public class TabbedDemo extends VerticalLayout {
 
 	private Tabs tabs;
 	private HorizontalLayout footer;
-	private SplitLayoutDemo<Component> currentLayout;
+	private SplitLayoutDemo currentLayout;
 	private Map<Tab, Component> demos;
 	private Checkbox orientationCB;
 	private Checkbox codeCB;
 
-	@SuppressWarnings("unchecked")
 	public TabbedDemo() {
 		tabs = new Tabs();
 		demos = new HashMap<>();
 		tabs.setWidthFull();
+
 		// Footer
 		orientationCB = new Checkbox("Toggle Orientation");
 		orientationCB.setValue(true);
@@ -70,7 +70,7 @@ public class TabbedDemo extends VerticalLayout {
 			Component currentDemo = demos.get(tabs.getSelectedTab());
 			this.add(tabs, currentDemo);
 			if (currentDemo instanceof SplitLayoutDemo) {
-				currentLayout = (SplitLayoutDemo<Component>) currentDemo;
+				currentLayout = (SplitLayoutDemo) currentDemo;
 				this.add(footer);
 				updateSplitterPosition();
 				updateSplitterOrientation();
@@ -92,7 +92,7 @@ public class TabbedDemo extends VerticalLayout {
 	public void addDemo(Component demo, String label, String sourceCodeUrl) {
 		Tab tab = new Tab(label);
 		if (sourceCodeUrl != null) {
-			demos.put(tab, new SplitLayoutDemo<>(demo, sourceCodeUrl));
+			demos.put(tab, new SplitLayoutDemo(demo, sourceCodeUrl));
 		} else {
 			demos.put(tab, demo);
 		}
