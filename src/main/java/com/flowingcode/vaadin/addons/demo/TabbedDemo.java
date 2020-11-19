@@ -67,17 +67,16 @@ public class TabbedDemo extends VerticalLayout {
 
 		tabs.addSelectedChangeListener(e -> {
 			removeAll();
-			// If current demo is instance of SplitLayoutDemo, add footer.
 			Component currentDemo = demos.get(tabs.getSelectedTab());
+			this.add(tabs, currentDemo);
 			if (currentDemo instanceof SplitLayoutDemo) {
 				currentLayout = (SplitLayoutDemo<Component>) currentDemo;
-				this.add(tabs, currentLayout, footer);
+				this.add(footer);
+				updateSplitterPosition();
+				updateSplitterOrientation();
+			} else {
+				currentLayout = null;
 			}
-			else {
-				this.add(tabs, currentDemo);
-			}
-			updateSplitterPosition();
-			updateSplitterOrientation();
 		});
 
 		setSizeFull();
