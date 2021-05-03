@@ -25,7 +25,7 @@ import com.vaadin.flow.router.Route;
 
 /** Hello world! */
 @Route("")
-public class Demo extends VerticalLayout {
+public class Demo extends TabbedDemo {
 
   public Demo() {
     final String sourceCodeUrl =
@@ -36,20 +36,17 @@ public class Demo extends VerticalLayout {
     vl.setSizeFull();
     vl.add(new TextField("Hello"));
 
-    TabbedDemo tabbedDemo = new TabbedDemo();
-    tabbedDemo.addDemo(vl, "Demo 1", sourceCodeUrl);
+    addDemo(vl, "Demo 1", sourceCodeUrl);
 
     vl2.add(new TextField("Hi"));
-    tabbedDemo.addDemo(vl2, "Demo 2", sourceCodeUrl);
+    addDemo(vl2, "Demo 2", sourceCodeUrl);
 
     TextField tf = new TextField("Demo Without Source Code");
     tf.setWidthFull();
     vl3.add(tf);
-    tabbedDemo.addDemo(vl3, "Demo Without Source Code");
+    addDemo(vl3, "Demo Without Source Code");
 
-    tabbedDemo.addDemo(new SampleDemo());
+    addDemo(new SampleDemo());
 
-    add(tabbedDemo);
-    setSizeFull();
   }
 }
