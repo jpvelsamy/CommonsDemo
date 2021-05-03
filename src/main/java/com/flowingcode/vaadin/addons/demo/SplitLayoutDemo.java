@@ -27,27 +27,31 @@ import com.vaadin.flow.component.splitlayout.SplitLayout.Orientation;
 @SuppressWarnings("serial")
 class SplitLayoutDemo extends Composite<SplitLayout> {
 
-	private SourceCodeView code;
+  private SourceCodeView code;
 
-	public SplitLayoutDemo(Component demo, String sourceUrl) {
-		getContent().setOrientation(Orientation.HORIZONTAL);
-		code = new SourceCodeView(sourceUrl);
+  public SplitLayoutDemo(Component demo, String sourceUrl) {
+    getContent().setOrientation(Orientation.HORIZONTAL);
+    code = new SourceCodeView(sourceUrl);
 
-		getContent().addToPrimary(demo);
-		getContent().addToSecondary(code);
-		getContent().setSizeFull();
-	}
+    getContent().addToPrimary(demo);
+    getContent().addToSecondary(code);
+    getContent().setSizeFull();
+  }
 
-	public void setOrientation(Orientation o) {
-		getContent().setOrientation(o);
-		getContent().getPrimaryComponent().getElement().setAttribute("style", "width: 100%; height: 100%");
-		code.setSizeFull();
-	}
+  public void setOrientation(Orientation o) {
+    getContent().setOrientation(o);
+    getContent()
+        .getPrimaryComponent()
+        .getElement()
+        .setAttribute("style", "width: 100%; height: 100%");
+    code.setSizeFull();
+  }
 
-	public void setSplitterPosition(int pos) {
-		getContent().setSplitterPosition(pos);
-	}
-	public void setSizeFull() {
-		getContent().setSizeFull();
-	}
+  public void setSplitterPosition(int pos) {
+    getContent().setSplitterPosition(pos);
+  }
+
+  public void setSizeFull() {
+    getContent().setSizeFull();
+  }
 }

@@ -19,38 +19,35 @@
  */
 package com.flowingcode.vaadin.addons.demo;
 
-import com.flowingcode.vaadin.addons.demo.TabbedDemo;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
-/**
- * Hello world!
- *
- */
+/** Hello world! */
 @Route("")
 public class Demo extends VerticalLayout {
 
-	public Demo() {
-		final String sourceCodeUrl = "https://github.com/FlowingCode/CommonsDemo/blob/master/src/test/java/com/flowingcode/vaadin/addons/demo/impl/Demo.java";
-		VerticalLayout vl = new VerticalLayout();
-		VerticalLayout vl2 = new VerticalLayout();
-		VerticalLayout vl3 = new VerticalLayout();
-		vl.setSizeFull();
-		vl.add(new TextField("Hello"));
+  public Demo() {
+    final String sourceCodeUrl =
+        "https://github.com/FlowingCode/CommonsDemo/blob/master/src/test/java/com/flowingcode/vaadin/addons/demo/impl/Demo.java";
+    VerticalLayout vl = new VerticalLayout();
+    VerticalLayout vl2 = new VerticalLayout();
+    VerticalLayout vl3 = new VerticalLayout();
+    vl.setSizeFull();
+    vl.add(new TextField("Hello"));
 
-		TabbedDemo tabbedDemo = new TabbedDemo();
-		tabbedDemo.addDemo(vl, "Demo 1", sourceCodeUrl);
+    TabbedDemo tabbedDemo = new TabbedDemo();
+    tabbedDemo.addDemo(vl, "Demo 1", sourceCodeUrl);
 
-		vl2.add(new TextField("Hi"));
-		tabbedDemo.addDemo(vl2, "Demo 2", sourceCodeUrl);
+    vl2.add(new TextField("Hi"));
+    tabbedDemo.addDemo(vl2, "Demo 2", sourceCodeUrl);
 
-		TextField tf = new TextField("Demo Without Source Code");
-		tf.setWidthFull();
-		vl3.add(tf);
-		tabbedDemo.addDemo(vl3, "Demo Without Source Code");
+    TextField tf = new TextField("Demo Without Source Code");
+    tf.setWidthFull();
+    vl3.add(tf);
+    tabbedDemo.addDemo(vl3, "Demo Without Source Code");
 
-		add(tabbedDemo);
-		setSizeFull();
-	}
+    add(tabbedDemo);
+    setSizeFull();
+  }
 }

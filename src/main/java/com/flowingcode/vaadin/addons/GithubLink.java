@@ -8,12 +8,12 @@ import java.lang.annotation.Target;
 
 /**
  * This annotation is used for configuring the URL in the {@code GitHubCorner}
- * @author Javier Godoy / Flowing Code
  *
+ * @author Javier Godoy / Flowing Code
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Inherited
 public @interface GithubLink {
-	String value();
+  String value();
 }
