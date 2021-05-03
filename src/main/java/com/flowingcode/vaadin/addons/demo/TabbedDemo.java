@@ -27,8 +27,10 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.splitlayout.SplitLayout.Orientation;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
+import com.vaadin.flow.router.PageTitle;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @StyleSheet("context://frontend/styles/commons-demo/shared-styles.css")
 @SuppressWarnings("serial")
@@ -82,6 +84,26 @@ public class TabbedDemo extends VerticalLayout {
         });
 
     setSizeFull();
+  }
+
+  /**
+   * Add a tab with a {@code demo} component. The tab label and source code URL are retrieved from
+   * the {@link PageTitle} (required) and {@link DemoSource} (optional) annotations in the demo
+   * class, respectively.
+   *
+   * @param demo the demo instance
+   */
+  public void addDemo(Component demo) {
+    String sourceCodeUrl =
+        Optional.ofNullable(demo.getClass().getAnnotation(DemoSource.class))
+            .map(DemoSource::value)
+            .orElse(null);
+    String label =
+        Optional.ofNullable(demo.getClass().getAnnotation(PageTitle.class))
+            .map(PageTitle::value)
+            .orElse(demo.getClass().getName());
+
+    addDemo(demo, label, sourceCodeUrl);
   }
 
   /**

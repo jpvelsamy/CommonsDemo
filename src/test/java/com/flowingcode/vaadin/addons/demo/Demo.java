@@ -47,6 +47,8 @@ public class Demo extends VerticalLayout {
     vl3.add(tf);
     tabbedDemo.addDemo(vl3, "Demo Without Source Code");
 
+    tabbedDemo.addDemo(new SampleDemo());
+
     add(tabbedDemo);
     setSizeFull();
   }
