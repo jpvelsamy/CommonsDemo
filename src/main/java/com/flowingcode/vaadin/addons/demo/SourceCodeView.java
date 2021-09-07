@@ -19,41 +19,24 @@
  */
 package com.flowingcode.vaadin.addons.demo;
 
-import com.vaadin.flow.component.AttachEvent;
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasSize;
-import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.JsModule;
-import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.dom.Element;
 
 @SuppressWarnings("serial")
-@NpmPackage(value = "polymer-code-highlighter", version = "1.0.5")
-@JsModule("polymer-code-highlighter/code-highlighter.js")
+@JsModule("./code-viewer.ts")
 class SourceCodeView extends Div implements HasSize {
 
-  private String sourceUrl;
-
   public SourceCodeView(String sourceUrl) {
-    this.sourceUrl = translateSource(sourceUrl);
-  }
-
-  @Override
-  protected void onAttach(AttachEvent attachEvent) {
-    super.onAttach(attachEvent);
-
-    getElement().executeJs(
-        "var self=this;"
-      + "var xhr = new XMLHttpRequest();"
-      + "xhr.onreadystatechange = function() {"
-      + "if (this.readyState == 4 && this.status == 200) {" 
-      + "  var elem = document.createElement('code-highlighter');"
-      + "  elem.setAttribute('lang','java');"
-      + "  elem.innerHTML = this.responseText;" 
-      + "  self.appendChild(elem);"
-      + "}};"
-      + "xhr.open('GET', $0, true);"
-      +  "xhr.send();", sourceUrl);    
+    String url = translateSource(sourceUrl);
+    Element codeViewer = new Element("code-viewer");
+    getElement().appendChild(codeViewer);
+    getElement().getStyle().set("display", "flex");
+    codeViewer.getStyle().set("flex-grow", "1");
+    addAttachListener(ev -> {
+      codeViewer.executeJs("this.fetchContents($0,$1)", url, "java");
+    });
   }
 
   private static String translateSource(String url) {
