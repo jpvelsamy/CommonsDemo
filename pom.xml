@@ -7,7 +7,7 @@
 
 	<groupId>com.flowingcode.vaadin.addons.demo</groupId>
 	<artifactId>commons-demo</artifactId>
-	<version>gamma4_2304dev_bubblet</version>
+	<version>jamun_24</version>
 
 	<name>Commons Demo</name>
 
